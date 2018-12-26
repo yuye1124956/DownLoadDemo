@@ -63,7 +63,7 @@ public class UpdateActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_update);
+        setContentView(R.layout.activity_update);
         versionCode = getIntent().getIntExtra("versionCode", 0);
         versionName = getIntent().getStringExtra("versionName");
         isForceUpdate = getIntent().getBooleanExtra("isForceUpdate", false);
