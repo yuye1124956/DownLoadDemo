@@ -26,6 +26,7 @@ public class UpdateActivity extends Activity {
     private Dialog dialog;
     private File apkFile;
     private boolean isFinish;
+    private DownloadService.DownloadBind mBinder;
     private DownloadService.OnDownloadListener onDownloadListener = new DownloadService.OnDownloadListener() {
         @Override
         public void onProgress(float progress, long totalSize) {
@@ -47,8 +48,7 @@ public class UpdateActivity extends Activity {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             if (service instanceof DownloadService.DownloadBind) {
-                DownloadService.DownloadBind binder = (DownloadService.DownloadBind) service;
-                binder.startDownload(downloadUrl, onDownloadListener);
+                mBinder = (DownloadService.DownloadBind) service;
             }
         }
 
@@ -70,6 +70,8 @@ public class UpdateActivity extends Activity {
         describe = getIntent().getStringExtra("describe");
         title = getIntent().getStringExtra("title");
         downloadUrl = getIntent().getStringExtra("downloadUrl");
+        Intent intent = new Intent(this, DownloadService.class);
+        bindService(intent, conn, BIND_AUTO_CREATE);
         showDialog();
     }
 
@@ -106,8 +108,9 @@ public class UpdateActivity extends Activity {
     }
 
     private void startDownload() {
-        Intent intent = new Intent(this, DownloadService.class);
-        bindService(intent, conn, BIND_AUTO_CREATE);
+        if (mBinder != null) {
+            mBinder.startDownload(downloadUrl, onDownloadListener);
+        }
     }
 
     @Override
