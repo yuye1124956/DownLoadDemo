@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.os.Looper;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
@@ -15,7 +14,6 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
@@ -102,9 +100,7 @@ public class YUpdate {
                             }
                         });
                     }
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -132,7 +128,7 @@ public class YUpdate {
                 intent.putExtra("downloadUrl", downloadUrl);
                 mContext.startActivity(intent);
             }
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
