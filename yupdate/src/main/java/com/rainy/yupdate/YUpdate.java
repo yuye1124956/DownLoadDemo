@@ -114,13 +114,13 @@ public class YUpdate {
     private void processResult(String result) {
         try {
             JSONObject jsonObject = new JSONObject(result);
-            JSONObject data = jsonObject.optJSONObject("result_info");
+            JSONObject data = jsonObject.optJSONObject("data");
             int versionCode = data.optInt("versionCode");
             String versionName = data.optString("versionName");
             boolean isForceUpdate = data.optBoolean("isForceUpdate");
             String describe = data.optString("describe");
             String title = data.optString("updateTitle");
-            String downloadUrl = data.optString("url");
+            String downloadUrl = data.optString("downloadUrl");
             if (this.mVersionCode < versionCode) {//发现新版本
                 Intent intent = new Intent(mContext, UpdateActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
