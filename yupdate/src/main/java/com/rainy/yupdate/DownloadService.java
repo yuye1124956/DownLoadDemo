@@ -66,9 +66,10 @@ public class DownloadService extends Service {
 
         private File is2File(InputStream is, final OnDownloadListener listener) {
             File file = new File(DownloadService.this.getExternalCacheDir(), "update.apk");
+            if (file.exists()) file.delete();
+            file = new File(DownloadService.this.getExternalCacheDir(), "update.apk");
             try {
                 FileOutputStream fos = new FileOutputStream(file);
-                if (file.exists()) file.delete();
                 byte[] buffer = new byte[2048];
                 int len;
                 while ((len = is.read(buffer)) != -1) {
